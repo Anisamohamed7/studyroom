@@ -41,14 +41,14 @@ def askOpenAI(message):
         return "I'm sorry, but I'm having trouble responding right now."
 
 def index(request):
-    return render(request, 'chat.html')
+    return render(request, 'chatbot/chat.html')
 
 def chat(request):
     all_chats = Chats.objects.all().order_by("-created_time")
-    return render(request, 'chat.html', {"chats": all_chats[:3][::-1]})
+    return render(request, 'chatbot/chat.html', {"chats": all_chats[:3][::-1]})
 
 def chatbot(request):
-    return render(request, 'chat.html')
+    return render(request, 'chatbot/chat.html')
 
 def chatbot_response(request):
     if request.method == "POST":
