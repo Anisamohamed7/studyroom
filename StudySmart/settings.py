@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=ibn55s0$w^6egy3r+_(hv#%47=fyoezp%%2c%z45aeoer(b3l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['studysmarrt.onrender.com', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['studysmart-og30.onrender.com', '127.0.0.1','localhost']
 
 
 # Application definition
