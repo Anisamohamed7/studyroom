@@ -18,4 +18,7 @@ urlpatterns = [
     path('update-user/', views.updateUser, name="update-user"),
     path("topics/", views.topicsPage, name="topics"),
     path("activity/", views.activityPage, name="activity"),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:  # This is only for local development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
