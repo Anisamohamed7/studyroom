@@ -8,6 +8,7 @@ from .models import Room, Topic, Message
 from .forms import RoomForm, UserForm, MyUserCreationForm
 #from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from .forms import MessageForm
 
 User = get_user_model()
 
@@ -99,12 +100,15 @@ def room(request, pk):
     room = Room.objects.get(id = pk) #returns one single object
     room_messages = room.message_set.all()
     participants = room.participants.all()
+    
 
     if request.method =="POST":
+        file = request.FILES.get('file')
         message = Message.objects.create(
             user = request.user,
             room = room,
-            body = request.POST.get('body')
+            body = request.POST.get('body'),
+            file = file if file else None
         )
         room.participants.add(request.user)
         return redirect('room', pk=room.id)
@@ -207,3 +211,14 @@ def topicsPage(request):
 def activityPage(request):
     room_messages = Message.objects.all
     return render(request, 'studyroom/activity.html', {'room_messages':room_messages})
+
+def send_message(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)  # Include request.FILES to handle file uploads
+        if form.is_valid():
+            form.save()
+            return redirect('some_view')  # Redirect after successful submission
+    else:
+        form = MessageForm()
+
+    return render(request, 'studyroom/room.html', {'form': form})

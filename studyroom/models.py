@@ -16,6 +16,7 @@ class Room(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='participants', blank=True)
+    file = models.FileField(upload_to='uploads/', null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -77,6 +78,7 @@ class Message(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE) 
     room = models.ForeignKey(Room,on_delete=models.CASCADE) #When a room is deleted, all the messages to be deleted too.
     body = models.TextField()
+    file = models.FileField(upload_to='uploads/', blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
